@@ -1,7 +1,7 @@
 /**
  * @module ol/Observable
  */
-import {listen, unlistenByKey, unlisten, listenOnce} from './events.js';
+import {listen, unlistenByKey, unlisten, listenOnce, unlistenAll} from './events.js';
 import EventTarget from './events/Target.js';
 import EventType from './events/EventType.js';
 
@@ -108,8 +108,15 @@ class Observable extends EventTarget {
       unlisten(this, /** @type {string} */ (type), listener);
     }
   }
-}
 
+  /**
+   * Unlisten from all events
+   * @api
+   */
+  unAll() {
+    unlistenAll(this);
+  }
+}
 
 /**
  * Removes an event listener using the key returned by `on()` or `once()`.

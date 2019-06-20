@@ -145,4 +145,32 @@ describe('ol.Observable', function() {
 
   });
 
+  describe('#unAll()', function() {
+    let observable, listener;
+    beforeEach(function() {
+      observable = new Observable();
+      listener = sinon.spy();
+    });
+
+    it('unregisters all listeners', function() {
+      observable.on('foo', listener);
+      observable.on('bar', listener);
+
+      observable.dispatchEvent('foo');
+      expect(listener.callCount).to.be(1);
+      observable.dispatchEvent('bar');
+      expect(listener.callCount).to.be(2);
+      observable.dispatchEvent('foo');
+      expect(listener.callCount).to.be(3);
+      observable.dispatchEvent('bar');
+      expect(listener.callCount).to.be(4);
+
+      observable.unAll();
+      observable.dispatchEvent('foo');
+      observable.dispatchEvent('bar');
+      expect(listener.callCount).to.be(4);
+    });
+
+  });
+
 });
